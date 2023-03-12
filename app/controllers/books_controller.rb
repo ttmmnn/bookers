@@ -7,7 +7,7 @@ class BooksController < ApplicationController
     @book =Book.new
     book =Book.new(book_params)
     book.save
-    redirect_to '/books/[:id]' #showのviewにリダイレクト
+    redirect_to book_path(book.id),notice:'Book was successfully created.'
   end
 
   def show
@@ -16,6 +16,18 @@ class BooksController < ApplicationController
 
   def edit
     @book =Book.find(params[:id])
+  end
+
+  def update
+    book =Book.find(params[:id])
+    book.update(book_params)
+    redirect_to book_path(book.id),notice:'Book was successfully updated.'
+  end
+
+  def destroy
+    book =Book.find(params[:id])
+    book.destroy(book_params)
+    redirect_to '/books'
   end
 
   private
